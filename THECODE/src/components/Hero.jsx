@@ -14,7 +14,7 @@ const Hero = ({ isLoaded, currentRole }) => {
                   {/* Replace the User icon with your profile image */}
                   <div className="w-full h-full bg-cover bg-center"
                        style={{
-                         backgroundImage: `url(${process.env.PUBLIC_URL}/mujeeb.png)`,
+                         backgroundImage: `url(${process.env.PUBLIC_URL}/../../mujeeb.png)`,
                          filter: 'grayscale(20%)'
                        }}>
                   </div>
