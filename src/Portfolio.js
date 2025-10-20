@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Mail, Phone, Github, Linkedin, Code, Brain, Cpu, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
 
 const Portfolio = () => {
-
+  const [activeSection, setActiveSection] = useState('hero');
   const [currentSkill, setCurrentSkill] = useState(0);
 
   const skills = [
@@ -69,11 +69,31 @@ const Portfolio = () => {
     return () => clearInterval(interval);
   }, [skills.length]);
 
+  const getSectionId = (item) => {
+    const mapping = {
+      'About': 'about',
+      'Experience': 'experience', 
+      'Skills': 'skills',
+      'Contact': 'contact'
+    };
+    return mapping[item] || item.toLowerCase();
+  };
+
   const scrollToSection = (sectionId) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    try {
+      setActiveSection(sectionId);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      } else {
+        console.warn(`Element with id "${sectionId}" not found`);
+      }
+    } catch (error) {
+      console.error('Error scrolling to section:', error);
     }
   };
 
@@ -96,7 +116,7 @@ const Portfolio = () => {
             {['About', 'Experience', 'Skills', 'Contact'].map((item) => (
               <button
                 key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
+                onClick={() => scrollToSection(getSectionId(item))}
                 className="hover:text-cyan-400 transition-colors duration-300 relative group"
               >
                 {item}
@@ -153,7 +173,7 @@ const Portfolio = () => {
           </div>
           
           <button
-            onClick={() => scrollToSection('about')}
+            onClick={() => scrollToSection(getSectionId('About'))}
             className="animate-bounce"
           >
             <ChevronDown className="w-8 h-8 text-cyan-400" />
