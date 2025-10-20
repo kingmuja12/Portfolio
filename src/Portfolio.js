@@ -69,6 +69,27 @@ const Portfolio = () => {
     return () => clearInterval(interval);
   }, [skills.length]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'about', 'experience', 'skills', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const getSectionId = (item) => {
     const mapping = {
       'About': 'about',
@@ -81,19 +102,17 @@ const Portfolio = () => {
 
   const scrollToSection = (sectionId) => {
     try {
-      setActiveSection(sectionId);
       const element = document.getElementById(sectionId);
       if (element) {
+        setActiveSection(sectionId);
         element.scrollIntoView({ 
           behavior: 'smooth',
           block: 'start',
           inline: 'nearest'
         });
-      } else {
-        console.warn(`Element with id "${sectionId}" not found`);
       }
     } catch (error) {
-      console.error('Error scrolling to section:', error);
+      // Silently handle scroll errors in production
     }
   };
 
@@ -113,16 +132,24 @@ const Portfolio = () => {
             Abdulmujeeb
           </div>
           <div className="hidden md:flex space-x-8">
-            {['About', 'Experience', 'Skills', 'Contact'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(getSectionId(item))}
-                className="hover:text-cyan-400 transition-colors duration-300 relative group"
-              >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300"></span>
-              </button>
-            ))}
+            {['About', 'Experience', 'Skills', 'Contact'].map((item) => {
+              const sectionId = getSectionId(item);
+              const isActive = activeSection === sectionId;
+              return (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(sectionId)}
+                  className={`transition-colors duration-300 relative group ${
+                    isActive ? 'text-cyan-400' : 'hover:text-cyan-400'
+                  }`}
+                >
+                  {item}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-cyan-400 transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </nav>
@@ -161,10 +188,10 @@ const Portfolio = () => {
             <a href="mailto:abdulmujeeba@mun.ca" className="bg-gradient-to-r from-cyan-500 to-purple-500 p-3 rounded-full hover:scale-110 transition-transform duration-300">
               <Mail className="w-6 h-6" />
             </a>
-            <a href="https://linkedin.com" className="bg-gradient-to-r from-blue-500 to-indigo-500 p-3 rounded-full hover:scale-110 transition-transform duration-300">
+            <a href="https://linkedin.com/in/abdulmujeeb-abdulwaheed" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-500 to-indigo-500 p-3 rounded-full hover:scale-110 transition-transform duration-300">
               <Linkedin className="w-6 h-6" />
             </a>
-            <a href="https://github.com" className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 rounded-full hover:scale-110 transition-transform duration-300">
+            <a href="https://github.com/kingmuja12" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 rounded-full hover:scale-110 transition-transform duration-300">
               <Github className="w-6 h-6" />
             </a>
             <a href="tel:+17096853386" className="bg-gradient-to-r from-green-500 to-emerald-500 p-3 rounded-full hover:scale-110 transition-transform duration-300">
@@ -413,13 +440,17 @@ const Portfolio = () => {
           
           <div className="flex justify-center gap-6">
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/abdulmujeeb-abdulwaheed"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white/10 backdrop-blur-sm p-4 rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-110"
             >
               <Linkedin className="w-6 h-6" />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/kingmuja12"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white/10 backdrop-blur-sm p-4 rounded-full hover:bg-white/20 transition-all duration-300 hover:scale-110"
             >
               <Github className="w-6 h-6" />
