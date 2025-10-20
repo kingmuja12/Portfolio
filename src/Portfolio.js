@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Mail, Phone, Github, Linkedin, Code, Brain, Cpu, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
 
 const Portfolio = () => {
-  const [activeSection, setActiveSection] = useState('hero');
+
   const [currentSkill, setCurrentSkill] = useState(0);
 
   const skills = [
