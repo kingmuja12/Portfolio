@@ -2,25 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-/* src/index.css */
-body {
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keep anchored sections clear of the fixed header. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-zinc-100 font-sans antialiased;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
-  }
-  
+
   * {
     box-sizing: border-box;
   }
-  
-  .App {
-    text-align: center;
+
+  /* One visible, consistent focus ring everywhere, keyboard only. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-ink-950 rounded-sm;
   }
+
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+
+  /* Anyone who has asked their OS to reduce motion gets none of it. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-content px-6 sm:px-8;
+  }
+
+  /* Section eyebrow: small mono label above each heading. */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+
+  .card {
+    @apply rounded-xl border border-white/[0.07] bg-ink-850 transition-colors duration-300 ease-smooth;
+  }
+
+  .card-interactive {
+    @apply card hover:border-white/15 hover:bg-ink-800;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-white/[0.07] bg-white/[0.03]
+           px-2.5 py-1 font-mono text-xs text-zinc-400;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-medium
+           transition-all duration-200 ease-smooth;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft;
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/10 text-zinc-200 hover:border-white/25 hover:bg-white/[0.04];
+  }
+
+  /* Scroll-reveal: hidden until the observer adds `.is-visible`. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
