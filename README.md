@@ -2,6 +2,9 @@
 
 Personal site for Abdulmujeeb Abdulwaheed — computer engineer, CTO at RespAi.
 
+**Who it's for:** recruiters, hiring managers, and collaborators who want one
+place to see Abdulmujeeb's experience, projects, and skills.
+
 **Live:** https://kingmuja12.github.io/Portfolio/
 
 Built with Create React App, Tailwind CSS, and lucide-react. Deploys to GitHub
@@ -96,3 +99,17 @@ src/
 
 `public/og-image.png` is the 1200×630 card shown when the link is shared. If you
 change your name or title, regenerate it so the preview matches.
+
+## Roadmap
+
+- Move the build from Create React App to Vite.
+- Add component tests with React Testing Library.
+- Upgrade to React 19, Tailwind CSS 4, and the current lucide-react.
+- Add case-study pages for selected projects.
+- Generate the social preview image in CI instead of by hand.
+- Self-host the Inter and JetBrains Mono fonts, and add a Lighthouse budget
+  check to CI.
+
+## License
+
+Released under the [MIT License](LICENSE).
