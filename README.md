@@ -1,5 +1,7 @@
 # Portfolio
 
+[![Build check](https://github.com/kingmuja12/Portfolio/actions/workflows/build-check.yml/badge.svg)](https://github.com/kingmuja12/Portfolio/actions/workflows/build-check.yml)
+
 Personal site for Abdulmujeeb Abdulwaheed — computer engineer, CTO at RespAi.
 
 **Who it's for:** recruiters, hiring managers, and collaborators who want one
@@ -101,6 +103,8 @@ src/
 change your name or title, regenerate it so the preview matches.
 
 ## Roadmap
+
+Planned work is tracked in the [Roadmap milestone](https://github.com/kingmuja12/Portfolio/milestone/1).
 
 - Move the build from Create React App to Vite.
 - Add component tests with React Testing Library.
